@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreFrontLab.UI.MVC", "..\StoreFrontLab.UI.MVC\StoreFrontLab.UI.MVC.csproj", "{DC22DC43-43F6-49AD-9CBE-5C7EED6005FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreFrontLab.UI.MVC", "StoreFrontLab.UI.MVC\StoreFrontLab.UI.MVC.csproj", "{25FBC9FC-4CAE-4E6F-BB47-1DF4BD1BC1AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC22DC43-43F6-49AD-9CBE-5C7EED6005FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC22DC43-43F6-49AD-9CBE-5C7EED6005FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC22DC43-43F6-49AD-9CBE-5C7EED6005FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC22DC43-43F6-49AD-9CBE-5C7EED6005FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FBC9FC-4CAE-4E6F-BB47-1DF4BD1BC1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FBC9FC-4CAE-4E6F-BB47-1DF4BD1BC1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FBC9FC-4CAE-4E6F-BB47-1DF4BD1BC1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FBC9FC-4CAE-4E6F-BB47-1DF4BD1BC1AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
