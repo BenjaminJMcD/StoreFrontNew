@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7ade133a9db84d89ba93461c406ee3cb" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="StoreFrontModel.AspNetRole" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.AspNetUserClaim" Width="1.5" PointX="7.625" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.AspNetUserLogin" Width="1.5" PointX="10" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.AspNetUser" Width="1.5" PointX="10" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Beverage" Width="1.5" PointX="4.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Category" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Employee" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Genre" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.LimitedReleas" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Producer" Width="1.5" PointX="2.625" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Record" Width="1.5" PointX="2.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.StockStatus" Width="1.5" PointX="4.5" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="StoreFrontModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Records_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Employees_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Records_Genres" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Records_LimitedReleases" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Records_Producers" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Records_StockStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
