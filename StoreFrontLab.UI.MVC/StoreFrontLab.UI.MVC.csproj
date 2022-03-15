@@ -775,6 +775,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Shared\OriginalLayout.cshtml" />
+    <Content Include="Views\Home\Shop.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
