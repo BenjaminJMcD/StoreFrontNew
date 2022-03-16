@@ -29,8 +29,8 @@ namespace StoreFront.DATA.EF
     
         public virtual Category Category { get; set; }
         public virtual Genre Genre { get; set; }
-        public virtual LimitedReleas LimitedReleas { get; set; }
+        public virtual LimitedReleases LimitedReleas { get; set; }
         public virtual Producer Producer { get; set; }
-        public virtual StockStatus StockStatus { get; set; }
+        public virtual StockStatuses StockStatus { get; set; }
     }
 }

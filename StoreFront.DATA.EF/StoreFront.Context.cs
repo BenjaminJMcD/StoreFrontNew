@@ -33,9 +33,9 @@ namespace StoreFront.DATA.EF
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
-        public virtual DbSet<LimitedReleas> LimitedReleases { get; set; }
+        public virtual DbSet<LimitedReleases> LimitedReleases1 { get; set; }
         public virtual DbSet<Producer> Producers { get; set; }
         public virtual DbSet<Record> Records { get; set; }
-        public virtual DbSet<StockStatus> StockStatuses { get; set; }
+        public virtual DbSet<StockStatuses> StockStatuses { get; set; }
     }
 }

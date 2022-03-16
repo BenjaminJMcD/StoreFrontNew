@@ -12,10 +12,10 @@ namespace StoreFront.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class LimitedReleas
+    public partial class LimitedReleases
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LimitedReleas()
+        public LimitedReleases()
         {
             this.Records = new HashSet<Record>();
         }

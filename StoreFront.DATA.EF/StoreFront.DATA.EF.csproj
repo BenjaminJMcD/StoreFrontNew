@@ -68,14 +68,13 @@
     <Compile Include="Category.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
     <Compile Include="Genre.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
-    <Compile Include="LimitedReleas.cs">
+    <Compile Include="LimitedReleases.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
     <Compile Include="Producer.cs">
@@ -85,7 +84,7 @@
     <Compile Include="Record.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
-    <Compile Include="StockStatus.cs">
+    <Compile Include="StockStatuses.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
     <Compile Include="StoreFront.Context.cs">
@@ -103,6 +102,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreFront.edmx</DependentUpon>
     </Compile>
+    <Compile Include="StoreFrontMetadata\StoreFrontMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="StoreFront.edmx">

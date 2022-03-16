@@ -12,16 +12,16 @@ namespace StoreFront.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class StockStatus
+    public partial class StockStatuses
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StockStatus()
+        public StockStatuses()
         {
             this.Records = new HashSet<Record>();
         }
     
         public int StockID { get; set; }
-        public string StockStatus1 { get; set; }
+        public string StockStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Records { get; set; }

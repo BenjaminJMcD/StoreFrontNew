@@ -13,10 +13,10 @@
         <EntityTypeShape EntityType="StoreFrontModel.Category" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Employee" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Genre" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="StoreFrontModel.LimitedReleas" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.LimitedReleases" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Producer" Width="1.5" PointX="2.625" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Record" Width="1.5" PointX="2.625" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="StoreFrontModel.StockStatus" Width="1.5" PointX="4.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.StockStatuses" Width="1.5" PointX="4.5" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="StoreFrontModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Records_Categories" ManuallyRouted="false" />
