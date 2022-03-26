@@ -21,13 +21,13 @@
 
 // Slider Bg
     .slider-bg1{
-        background-image: url(../img/hero/h1_hero1.png);
+        background-image: url(/Content/Images/recordneedleorange.jpg);
     }
     .slider-bg2{
-        background-image: url(../img/hero/h1_hero2.png);
+        background-image: url(/Content/Images/pourovervases.jpg);
     }
     .slider-bg3{
-        background-image: url(../img/hero/h1_hero3.png);
+        background-image: url(/Content/Images/recordingstudio.jpg);
     }
 
 // Home Page Heor
@@ -54,7 +54,7 @@
             }
         }
         h1{
-            font-size: 120px;
+            font-size: 100px;
             font-weight: 700;
             margin-bottom: 14px;
             text-transform: normal;
@@ -62,19 +62,19 @@
             line-height: 120px;
             margin-bottom: 39px;
             @media #{$lg}{
-                font-size: 90px;
+                font-size: 70px;
                 line-height: 88px;
             }
             @media #{$md}{
-                font-size: 78px;
+                font-size: 60px;
                 line-height: 76px;
             }
             @media #{$sm}{
-                font-size: 63px;
+                font-size: 50px;
                 line-height: 62px;
             }
             @media #{$xs}{
-                font-size: 41px;
+                font-size: 35px;
                 line-height: 1.2;
                 margin-bottom: 20px;
             }
@@ -127,7 +127,7 @@
 
 // Start Other Page Hero
 .hero-area2 {
-        background-image: url(../img/hero/hero2.png);
+        background-image: url(/Content/Images/recordingstudio.jpg);
         background-size: cover;
         background-repeat: no-repeat;
         min-height: 500px;

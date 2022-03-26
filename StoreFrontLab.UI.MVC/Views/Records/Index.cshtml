@@ -1,0 +1,96 @@
+﻿
+@model PagedList.IPagedList<StoreFront.DATA.EF.Record>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "All Records";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
+
+<table class="table">
+    <tr>
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CoverImage)
+        </th>
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().RecordName)
+        </th>
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BandMusician)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.ColoredLP)
+        </th>*@
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)
+        </th>
+        @*@<th>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockStatus.Status)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="col-md-4">
+            @*@Html.DisplayFor(modelItem => item.CoverImage)*@
+            <img src="~/Content/RecordCovers/@item.CoverImage" title="@item.RecordName" style="max-width: 300px;" />
+        </td>
+        <td class="col-md-3">
+            @Html.DisplayFor(modelItem => item.RecordName)
+        </td>
+        <td class="col-md-3">
+            @Html.DisplayFor(modelItem => item.BandMusician)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>*@
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ColoredLP)
+        </td>*@
+        <td class="col-md-2">
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Genre.GenreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Producer.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockStatus.Status)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecordID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecordID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecordID })
+        </td>
+    </tr>
+}
+
+</table>

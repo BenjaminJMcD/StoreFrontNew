@@ -1,0 +1,101 @@
+﻿@model StoreFront.DATA.EF.Record
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Record</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BandMusician)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BandMusician)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+
+
+
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColoredLP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColoredLP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre.GenreName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockStatus.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockStatus.Status)
+        </dd>
+
+    </dl>
+</div>
+
+<div class="col-md-6">
+    <img style="max-width:300px" src="~/Content/RecordCovers/@Model.CoverImage" title="@Model.RecordName" />
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

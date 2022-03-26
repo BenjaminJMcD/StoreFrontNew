@@ -94,16 +94,6 @@
           <Property Name="OriginRegion" Type="nchar" MaxLength="50" />
           <Property Name="OriginCountry" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="LimitedReleases">
-          <Key>
-            <PropertyRef Name="LimitID" />
-          </Key>
-          <Property Name="LimitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OriginalReleaseDate" Type="date" />
-          <Property Name="OriginalReleaseAmount" Type="int" />
-          <Property Name="LimitedReleaseAmount" Type="int" />
-          <Property Name="LimitedReleaseDate" Type="date" />
-        </EntityType>
         <EntityType Name="Producers">
           <Key>
             <PropertyRef Name="ProducerID" />
@@ -113,7 +103,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="char" MaxLength="2" />
-          <Property Name="Country" Type="nchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Records">
           <Key>
@@ -129,15 +119,14 @@
           <Property Name="StockID" Type="int" Nullable="false" />
           <Property Name="ProducerID" Type="int" />
           <Property Name="CategoryID" Type="int" />
-          <Property Name="ColoredLP" Type="varchar" MaxLength="50" />
-          <Property Name="LimitID" Type="int" />
+          <Property Name="ColoredLP" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="StockStatuses">
           <Key>
             <PropertyRef Name="StockID" />
           </Key>
           <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StockStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -231,18 +220,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Records_LimitedReleases">
-          <End Role="LimitedReleases" Type="Self.LimitedReleases" Multiplicity="0..1" />
-          <End Role="Records" Type="Self.Records" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LimitedReleases">
-              <PropertyRef Name="LimitID" />
-            </Principal>
-            <Dependent Role="Records">
-              <PropertyRef Name="LimitID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Records_Producers">
           <End Role="Producers" Type="Self.Producers" Multiplicity="0..1" />
           <End Role="Records" Type="Self.Records" Multiplicity="*" />
@@ -277,7 +254,6 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LimitedReleases" EntityType="Self.LimitedReleases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Records" EntityType="Self.Records" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockStatuses" EntityType="Self.StockStatuses" Schema="dbo" store:Type="Tables" />
@@ -307,10 +283,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Records_Genres" Association="Self.FK_Records_Genres">
             <End Role="Genres" EntitySet="Genres" />
-            <End Role="Records" EntitySet="Records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Records_LimitedReleases" Association="Self.FK_Records_LimitedReleases">
-            <End Role="LimitedReleases" EntitySet="LimitedReleases" />
             <End Role="Records" EntitySet="Records" />
           </AssociationSet>
           <AssociationSet Name="FK_Records_Producers" Association="Self.FK_Records_Producers">
@@ -418,17 +390,6 @@
           <Property Name="OriginCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Records" Relationship="Self.FK_Records_Genres" FromRole="Genres" ToRole="Records" />
         </EntityType>
-        <EntityType Name="LimitedReleases">
-          <Key>
-            <PropertyRef Name="LimitID" />
-          </Key>
-          <Property Name="LimitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OriginalReleaseDate" Type="DateTime" Precision="0" />
-          <Property Name="OriginalReleaseAmount" Type="Int32" />
-          <Property Name="LimitedReleaseAmount" Type="Int32" />
-          <Property Name="LimitedReleaseDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Records" Relationship="Self.FK_Records_LimitedReleases" FromRole="LimitedReleases" ToRole="Records" />
-        </EntityType>
         <EntityType Name="Producer">
           <Key>
             <PropertyRef Name="ProducerID" />
@@ -438,7 +399,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Records" Relationship="Self.FK_Records_Producers" FromRole="Producers" ToRole="Records" />
         </EntityType>
         <EntityType Name="Record">
@@ -455,20 +416,18 @@
           <Property Name="StockID" Type="Int32" Nullable="false" />
           <Property Name="ProducerID" Type="Int32" />
           <Property Name="CategoryID" Type="Int32" />
-          <Property Name="ColoredLP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LimitID" Type="Int32" />
+          <Property Name="ColoredLP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Records_Categories" FromRole="Records" ToRole="Categories" />
           <NavigationProperty Name="Genre" Relationship="Self.FK_Records_Genres" FromRole="Records" ToRole="Genres" />
-          <NavigationProperty Name="LimitedReleas" Relationship="Self.FK_Records_LimitedReleases" FromRole="Records" ToRole="LimitedReleases" />
           <NavigationProperty Name="Producer" Relationship="Self.FK_Records_Producers" FromRole="Records" ToRole="Producers" />
           <NavigationProperty Name="StockStatus" Relationship="Self.FK_Records_StockStatuses" FromRole="Records" ToRole="StockStatuses" />
         </EntityType>
-        <EntityType Name="StockStatuses">
+        <EntityType Name="StockStatus">
           <Key>
             <PropertyRef Name="StockID" />
           </Key>
           <Property Name="StockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StockStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Records" Relationship="Self.FK_Records_StockStatuses" FromRole="StockStatuses" ToRole="Records" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -535,18 +494,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Records_LimitedReleases">
-          <End Role="LimitedReleases" Type="StoreFrontModel.LimitedReleases" Multiplicity="0..1" />
-          <End Role="Records" Type="Self.Record" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LimitedReleases">
-              <PropertyRef Name="LimitID" />
-            </Principal>
-            <Dependent Role="Records">
-              <PropertyRef Name="LimitID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Records_Producers">
           <End Role="Producers" Type="Self.Producer" Multiplicity="0..1" />
           <End Role="Records" Type="Self.Record" Multiplicity="*" />
@@ -560,7 +507,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Records_StockStatuses">
-          <End Role="StockStatuses" Type="StoreFrontModel.StockStatuses" Multiplicity="1" />
+          <End Role="StockStatuses" Type="Self.StockStatus" Multiplicity="1" />
           <End Role="Records" Type="Self.Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StockStatuses">
@@ -584,10 +531,9 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
-          <EntitySet Name="LimitedReleases1" EntityType="StoreFrontModel.LimitedReleases" />
           <EntitySet Name="Producers" EntityType="Self.Producer" />
           <EntitySet Name="Records" EntityType="Self.Record" />
-          <EntitySet Name="StockStatuses" EntityType="StoreFrontModel.StockStatuses" />
+          <EntitySet Name="StockStatuses" EntityType="Self.StockStatus" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -606,10 +552,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Records_Genres" Association="Self.FK_Records_Genres">
             <End Role="Genres" EntitySet="Genres" />
-            <End Role="Records" EntitySet="Records" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Records_LimitedReleases" Association="Self.FK_Records_LimitedReleases">
-            <End Role="LimitedReleases" EntitySet="LimitedReleases1" />
             <End Role="Records" EntitySet="Records" />
           </AssociationSet>
           <AssociationSet Name="FK_Records_Producers" Association="Self.FK_Records_Producers">
@@ -718,17 +660,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LimitedReleases1">
-            <EntityTypeMapping TypeName="StoreFrontModel.LimitedReleases">
-              <MappingFragment StoreEntitySet="LimitedReleases">
-                <ScalarProperty Name="LimitID" ColumnName="LimitID" />
-                <ScalarProperty Name="OriginalReleaseDate" ColumnName="OriginalReleaseDate" />
-                <ScalarProperty Name="OriginalReleaseAmount" ColumnName="OriginalReleaseAmount" />
-                <ScalarProperty Name="LimitedReleaseAmount" ColumnName="LimitedReleaseAmount" />
-                <ScalarProperty Name="LimitedReleaseDate" ColumnName="LimitedReleaseDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Producers">
             <EntityTypeMapping TypeName="StoreFrontModel.Producer">
               <MappingFragment StoreEntitySet="Producers">
@@ -755,15 +686,14 @@
                 <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="ColoredLP" ColumnName="ColoredLP" />
-                <ScalarProperty Name="LimitID" ColumnName="LimitID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StockStatuses">
-            <EntityTypeMapping TypeName="StoreFrontModel.StockStatuses">
+            <EntityTypeMapping TypeName="StoreFrontModel.StockStatus">
               <MappingFragment StoreEntitySet="StockStatuses">
                 <ScalarProperty Name="StockID" ColumnName="StockID" />
-                <ScalarProperty Name="StockStatus" ColumnName="StockStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

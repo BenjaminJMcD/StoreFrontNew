@@ -1,0 +1,33 @@
+﻿body {background-color:slategrey;
+}
+
+.logoBens {
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.slider-bg1 {
+    background-image: url(/Content/Images/recordneedleorange.jpg);
+}
+
+.slider-bg2 {
+    background-image: url(/Content/Images/pourovervases.jpg);
+}
+
+.slider-bg3 {
+    background-image: url(/Content/Images/recordingstudio.jpg);
+}
+
+.dl-horizontal dt{
+    color:white;
+}
+
+
+
+
+
+/* ALBUM + ICON for SHOPPING BAG
+    <i class="fa-solid fa-album-collection-circle-plus"></i>
+*/

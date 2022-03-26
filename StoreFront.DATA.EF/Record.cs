@@ -25,12 +25,10 @@ namespace StoreFront.DATA.EF
         public Nullable<int> ProducerID { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string ColoredLP { get; set; }
-        public Nullable<int> LimitID { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Genre Genre { get; set; }
-        public virtual LimitedReleases LimitedReleas { get; set; }
         public virtual Producer Producer { get; set; }
-        public virtual StockStatuses StockStatus { get; set; }
+        public virtual StockStatus StockStatus { get; set; }
     }
 }

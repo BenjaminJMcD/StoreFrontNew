@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B310BF8C-52B5-4307-BF5E-13A4526C0F29}</ProjectGuid>
+    <ProjectGuid>{2FFB981E-B4FF-4767-9F49-DE33D1AAF106}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StoreFront.DATA.EF</RootNamespace>
@@ -74,9 +74,6 @@
     <Compile Include="Genre.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
-    <Compile Include="LimitedReleases.cs">
-      <DependentUpon>StoreFront.tt</DependentUpon>
-    </Compile>
     <Compile Include="Producer.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
@@ -84,7 +81,7 @@
     <Compile Include="Record.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
-    <Compile Include="StockStatuses.cs">
+    <Compile Include="StockStatus.cs">
       <DependentUpon>StoreFront.tt</DependentUpon>
     </Compile>
     <Compile Include="StoreFront.Context.cs">
@@ -102,7 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreFront.edmx</DependentUpon>
     </Compile>
-    <Compile Include="StoreFrontMetadata\StoreFrontMetadata.cs" />
+    <Compile Include="Metadata\StoreFrontMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="StoreFront.edmx">

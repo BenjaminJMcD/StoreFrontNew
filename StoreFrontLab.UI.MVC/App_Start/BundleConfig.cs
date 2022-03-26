@@ -73,6 +73,7 @@ namespace StoreFrontLab.UI.MVC
                       "~/Content/assets/css/style.css",
                       "~/Content/assets/css/style.map",
                       "~/Content/assets/css/themify-icons.css",
+                      "~/Content/PagedList.css",
                       "~/Content/Doc/css/font-awesome.min.css",
                       "~/Content/Doc/css/main.css",
                       "~/Content/Doc/css/normalize.min.css"
