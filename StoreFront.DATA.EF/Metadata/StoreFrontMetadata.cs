@@ -120,17 +120,26 @@ namespace StoreFront.DATA.EF/*.Metadata*/
         public string Country { get; set; }
     }
     [MetadataType(typeof(ProducerMetadata))]
-    public partial class Producer { }
+    public partial class Producer
+    {
+        [Display(Name = "Producer")]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+    }
 
 
     public class RecordMetadata
     {
         //public int RecordID { get; set; }
 
+        [Display(Name = "Record")]
         [Required(ErrorMessage = "Record Name is required")]
         [StringLength(50, ErrorMessage = "Must be 50 characters or less")]
         public string RecordName { get; set; }
 
+        [Display(Name = "Artist")]
         [Required(ErrorMessage = "Beverage Name is required")]
         [StringLength(50, ErrorMessage = "Must be 50 characters or less")]
         public string BandMusician { get; set; }
@@ -144,6 +153,7 @@ namespace StoreFront.DATA.EF/*.Metadata*/
         [DisplayFormat(DataFormatString = "{0:c}", NullDisplayText = "---")]
         public Nullable<decimal> Price { get; set; }
 
+        [Display(Name = "Cover")]
         [DisplayFormat(NullDisplayText = "---")]
         public string CoverImage { get; set; }
 

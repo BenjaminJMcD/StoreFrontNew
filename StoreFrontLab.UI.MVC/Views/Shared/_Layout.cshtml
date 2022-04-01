@@ -9,6 +9,9 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="~/Content/Images/record-vinyl-solid.svg">
 
+    <!-- jQueryUI Theme -->
+    <link href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css" rel="stylesheet" />
+
     <!-- CSS here -->
     <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/assets/css/owl.carousel.min.css">
@@ -24,6 +27,8 @@
     <link rel="stylesheet" href="~/Content/assets/css/slick.css">
     <link rel="stylesheet" href="~/Content/assets/css/nice-select.css">
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
+
+
 
 
     <!--CSS BUNDLE-->
@@ -45,7 +50,8 @@
     <!-- Preloader Start-->
     <header>
         <!-- Header Start -->
-        <div class="header-area" style="background:url(/Content/Images/underwatertrim5.jpg)">            <!--#1D2547 is footer color-->
+        <div class="header-area" style="background:url(/Content/Images/underwatertrim5.jpg)">
+            <!--#1D2547 is footer color-->
             <div class="main-header header-sticky" style="background:url(/Content/Images/underwatertrim5.jpg)">
                 <div class="container-fluid">
                     <div class="menu-wrapper d-flex align-items-center justify-content-between">
@@ -71,34 +77,51 @@
                                         </li>
                                         <li>@Html.ActionLink("Beverages", "index", "Beverages")</li>
                                         <li>@Html.ActionLink("Contact", "contact", "Home")</li>
+                                        <li>
+                                            @Html.ActionLink("Account", "Login", "Account")
+                                            <ul class="submenu">
+                                                <li>
+                                                    @Html.Partial("_LoginPartial")
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         @*<div class="header-right1 d-flex align-items-center">
-                        <!-- Social -->
-                        <div class="header-social d-none d-md-block">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        </div>
+                            <!-- Social -->
+                            <div class="header-social d-none d-md-block">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>*@
                         <!-- Search Box -->
                         <div class="search d-none d-md-block">
                             <ul class="d-flex align-items-center">
-                                <li class="mr-15">
-                                    <div class="nav-search search-switch">
-                                        <i class="ti-search"></i>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="card-stor">
-                                        <img src="~/Content/assets/img/gallery/card.svg" alt="">
-                                        <span>0</span>
-                                    </div>
-                                </li>
+                                @*<li class="mr-15">
+                                        <div class="nav-search search-switch">
+                                            <i class="ti-search"></i>
+                                        </div>
+                                    </li>*@
+                                @if (Session["cart"] != null)
+                                {
+                                    <li>
+                                        @{
+                                            Dictionary<int, StoreFrontLab.UI.MVC.Models.CartItemViewModel> prods = (Dictionary<int, StoreFrontLab.UI.MVC.Models.CartItemViewModel>)
+                                                Session["cart"];
+                                            var prodCount = prods.Sum(p => p.Value.Qty);
+                                        }
+
+                                        <a href="@Url.Action("Index", "ShoppingCart")">
+                                            <img src="~/Content/Images/record-vinyl-solid.svg" style="width:50px;" />
+                                            <sup style="color:white; background-color:darkorange; border-radius:30%; display:inline-block; height:1em; padding:1em; text-align:center">@prodCount</sup>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
-                    </div>*@
+                        @*</div>*@
                         <!-- Mobile Menu -->
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
@@ -126,30 +149,30 @@
                                     <a href="index.html"><img src="~/Content/Images/CaptainBensLogo.png" alt=""></a>
                                 </div>
                                 @*<div class="footer-tittle">
-                                    <div class="footer-pera">
-                                        <p>Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla.</p>
-                                    </div>
-                                </div>*@
+                                        <div class="footer-pera">
+                                            <p>Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla.</p>
+                                        </div>
+                                    </div>*@
                                 <!-- social -->
                                 @*<div class="footer-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>*@
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                        <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                         @*<div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Quick links</h4>
-                                <ul>
-                                    <li><a href="#">Image Licensin</a></li>
-                                    <li><a href="#">Style Guide</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                </ul>
-                            </div>
-                        </div>*@
+                                <div class="footer-tittle">
+                                    <h4>Quick links</h4>
+                                    <ul>
+                                        <li><a href="#">Image Licensin</a></li>
+                                        <li><a href="#">Style Guide</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                         <div class="single-footer-caption mb-50">
@@ -171,6 +194,11 @@
                                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
                                     <li>@Html.ActionLink("Beverage Menu", "index", "Beverages")</li>
                                     <li>@Html.ActionLink("Search Records", "Index", "Records")</li>
+                                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>
+                                        <li>@Html.ActionLink("Users", "Index", "UsersAdmin")</li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -228,6 +256,12 @@
     </div>
 
     <!-- JS here -->
+    <!-- Added jQueryUI CDN -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Added jQuery AJAX CDN -->
+    <script src="https://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
+
     <!-- Jquery, Popper, Bootstrap -->
     <script src="~/Scripts/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="~/Scripts/js/vendor/jquery-1.12.4.min.js"></script>
@@ -267,8 +301,11 @@
     <script src="~/Scripts/js/plugins.js"></script>
     <script src="~/Scripts/js/main.js"></script>
 
+
+
     @Scripts.Render("~/bundles/scripts")
-    @RenderSection("scripts", required:false)
+
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

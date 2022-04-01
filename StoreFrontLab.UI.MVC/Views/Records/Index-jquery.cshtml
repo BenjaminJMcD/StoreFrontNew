@@ -1,0 +1,130 @@
+﻿@model IEnumerable<StoreFront.DATA.EF.Record>
+
+@{
+    ViewBag.Title = "All Records";
+}
+
+@* IMPLEMENTATION STEPS
+    1) Add JS & CSS files to the layout
+    2) Update HTML table structure (thead/tbody) & add hook
+    3) Add script section & apply the plugin *@
+
+
+<h2>@ViewBag.Title</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="data-table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CoverImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BandMusician)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColoredLP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producer.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.BookStatus.BookStatusName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre.GenreName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Publisher.PublisherName)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.CoverImage)*@
+                    <img src="~/Content/RecordCovers/t_@item.CoverImage" alt="@item.RecordName" style="width:200px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecordName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BandMusician)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColoredLP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockStatus.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producer.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.BookStatus.BookStatusName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
+                    </td>*@
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.BookID }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = item.RecordID })
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.BookID })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@section scripts {
+
+    <script>
+        //Apply jQuery DataTables plugin
+        $(document).ready(function () {
+            $(".data-table").DataTable();
+        });
+    </script>
+
+}
+

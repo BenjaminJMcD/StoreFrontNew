@@ -40,21 +40,35 @@
                         <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
+                @*<p>
+                    @Html.ActionLink("Register a new user?", "Register")
+                </p>
+                <p>
+                    @Html.ActionLink("Forget your password?", "ForgotPassword")
+                </p>*@
+            }
+        </section>
+    </div>
+    <div class="col-md-4">
+        @*<section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new StoreFrontLab.UI.MVC.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
+        <section>
+            <h4>Need help logging in?</h4>
+            <hr />
+            <div>
                 <p>
                     @Html.ActionLink("Register a new user?", "Register")
                 </p>
                 <p>
                     @Html.ActionLink("Forget your password?", "ForgotPassword")
                 </p>
-            }
+            </div>
         </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new StoreFrontLab.UI.MVC.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+        
     </div>
-</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

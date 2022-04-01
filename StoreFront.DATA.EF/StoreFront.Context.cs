@@ -25,9 +25,6 @@ namespace StoreFront.DATA.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Beverage> Beverages { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -36,5 +33,6 @@ namespace StoreFront.DATA.EF
         public virtual DbSet<Producer> Producers { get; set; }
         public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<StockStatus> StockStatuses { get; set; }
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }
