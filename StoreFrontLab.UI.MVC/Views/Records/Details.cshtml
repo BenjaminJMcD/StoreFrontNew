@@ -4,15 +4,15 @@
     ViewBag.Title = "Add to Cart?";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 style="color:white;">@ViewBag.Title</h2>
 
-<div class="col-md-3" style="float:left;">
+<div style="float:left; margin-left:25%;">
     <img style="max-width:300px" src="~/Content/RecordCovers/@Model.CoverImage" title="@Model.RecordName" />
 </div>
 
 <div>
     
-        <dl class="col-md-3">
+        <dl class="col-md-3" style="margin-left:50%;">
             <dt>
                 @Html.DisplayNameFor(model => model.RecordName)
             </dt>
@@ -52,9 +52,7 @@
             <dd>
                 @Html.DisplayFor(model => model.ColoredLP)
             </dd>
-        </dl>
 
-        <dl class="col-md-3">
             <dt>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </dt>

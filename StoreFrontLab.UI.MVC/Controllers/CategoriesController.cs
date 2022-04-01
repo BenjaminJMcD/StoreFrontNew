@@ -36,6 +36,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
 
         public ActionResult Wizardry()
         {
+            
             return View();
         }
 

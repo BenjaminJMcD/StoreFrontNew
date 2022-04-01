@@ -15,7 +15,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 @foreach (var item in Model)
 {
     <div class="cardben" style="display:inline-block; background-color:silver; margin:20px;">
-        <a href="@Url.Action("Delete", "Records", new { id = item.RecordID })"><img src="~/Content/RecordCovers/@item.CoverImage" title="@item.RecordName" style="max-width: 300px;" /></a>
+        <a href="@Url.Action("Details", "Records", new { id = item.RecordID })"><img src="~/Content/RecordCovers/@item.CoverImage" title="@item.RecordName" style="max-width: 300px;" /></a>
         <div class="containerben">
             <h4><b>@Html.DisplayFor(modelItem => item.RecordName)</b></h4>
             <p>@Html.DisplayFor(modelItem => item.BandMusician)</p>
