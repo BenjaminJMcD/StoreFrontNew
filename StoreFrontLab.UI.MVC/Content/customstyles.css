@@ -35,6 +35,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     display: inline-block;
+    max-width: 300px;
 }
 
     /* On mouse-over, add a deeper shadow */
@@ -44,6 +45,7 @@
 
 /* Add some padding inside the card container */
 .containerben {
+    width: 300px;
     padding: 2px 16px;
     text-align: center;
 }

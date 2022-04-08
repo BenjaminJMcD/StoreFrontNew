@@ -1,0 +1,27 @@
+﻿@model PagedList.IPagedList<StoreFront.DATA.EF.Record>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Backyard";
+}
+<body background="~/Content/Images/backyardbackground1900.jpg"></body>
+
+    <h2 style="color:silver;">@ViewBag.Title</h2>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Backyard", new { page }))
+
+    @foreach (var item in Model)
+    {
+        <div class="cardben" style="display:inline-block; background-color:silver; margin:20px; max-width:300px;">
+            <a href="@Url.Action("Details", "Records", new { id = item.RecordID })"><img src="~/Content/RecordCovers/@item.CoverImage" title="@item.RecordName" style="max-width: 300px;" /></a>
+            <div class="containerben">
+                <h4><b>@Html.DisplayFor(modelItem => item.RecordName)</b></h4>
+                <p>@Html.DisplayFor(modelItem => item.BandMusician)</p>
+            </div>
+        </div>
+
+    }
+
+</body>

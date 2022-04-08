@@ -1,0 +1,213 @@
+﻿
+@model PagedList.IPagedList<StoreFront.DATA.EF.Record>
+@using PagedList;
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "All Records";
+}
+
+<h2 style="color:silver;">@ViewBag.Title</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p class="row">
+        <button id="toggleRecordsCreate" class="btn btn-primary text-right pull-left">Add New</button>
+    </p>
+    <p id="RecordsCreate">
+        @Html.Partial("RecordsCreate", new StoreFront.DATA.EF.Record())
+    </p>
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+}
+#<!-- #region SearchFilter -->
+@*<div class="row panel panel-heading" style="float:right;">
+        <br />
+        <form method="get" action="/Records/Index" class="form-horizontal pull-right">
+            <div class="form-group">
+                <div class="col-xs-offset-1 col-xs-11 col-sm-2">
+                    <label for="searchFilter">Search Record/Artist</label>
+                </div>
+
+                <div class="col-xs-offset-1 col-xs-11 col-sm-5">
+                    <input type="text" name="searchFilter" />
+                </div>
+
+                <div class="col-xs-offset-1 col-xs-11 col-sm-2" style="margin-right: 15%;">
+                    <input type="submit" value="Go!" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>*@
+<!-- #endregion -->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+
+<table class="table table-striped" id="RecordsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CoverImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().RecordName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BandMusician)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ColoredLP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Genre.GenreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Producer.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().StockStatus.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="Record-@item.RecordID">
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.CoverImage)*@
+                    <img src="~/Content/RecordCovers/t_@item.CoverImage" title="@item.RecordName" style="max-width: 100px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecordName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BandMusician)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColoredLP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producer.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockStatus.Status)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Details", "Details", new { id = item.RecordID })
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.RecordID })
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.RecordID })*@
+
+                        @Ajax.ActionLink("Delete", "AjaxDelete", "Records",
+                        new { id = item.RecordID },
+                        new AjaxOptions
+                        {
+                           HttpMethod = "POST",
+                           Confirm = $"Are you sure you want to delete {item.RecordName}  from the Database?",
+                           OnSuccess = "deleteConfirmed",
+                           OnFailure = "deleteFailed"
+                        }
+                        )
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script>
+
+        // *********** AJAX DELETE CONFIRMATION ************* //
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the table onscreen
+            var rowId = "#Record-" + response.id;
+            $("#RecordsTable").find(rowId).remove();
+
+            //display a status message (use AJAX response's message property)
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+        }
+        function deleteFailed(response, status, data) {
+            //display a status message (use AJAX response's message property)
+            $("#MessageContent").html("<div class='alert alert-danger'>Delete unsuccessful. Is this record referenced elsewhere? If so, delete all affiliations.</div >");
+        }
+
+        // *********** SHOW CREATE FORM ************** //
+        $("#RecordsCreate").hide();
+        $("#toggleRecordsCreate").click(function () {
+            $("#RecordsCreate").toggle();
+        });
+
+        // ************** AJAX CREATE *************** //
+        $("#RecordsCreateForm").submit(function (e) {
+            var formData = $(this).serializeArray();
+            console.log(formData);
+            e.preventDefault();
+
+            $.ajax({
+                url: "/Records/AjaxCreate/",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                error: function (e) {
+                    $("#MessageContent").html("<div class-'alert alert-danger'>There was a problem!</div>");
+                },
+                success: function (foo) {
+                    $("#MessageContent").html("<div class='alert alert-success'>Record successfully added!</div>");
+                    $("#RecordsCreateForm")[0].reset();
+                    $(function () {
+                        var row = '<tr><td>' + foo.RecordName
+                            + '<tr><td>' + foo.BandMusician
+                            + '<tr><td>' + foo.Genre.GenreName
+                            + '<tr><td>' + foo.ReleaseDate
+                            + '<tr><td>' + foo.Price
+                            + '<tr><td>' + foo.CoverImage
+                            + '<tr><td>' + foo.StockStatus.Status
+                            + '<tr><td>' + foo.Producer.FullName
+                            + '<tr><td>' + foo.Category.CategoryName
+                            + '<tr><td>' + foo.ColoredLP
+                            + '<tr><td>Refresh to view options<</td></tr>';
+                        $("#RecordsTable").append(row);
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+}

@@ -4,17 +4,17 @@
 @{
     ViewBag.Title = "Local";
 }
+<body background="~/Content/Images/unionstation1900crop.jpg"></body>
 
-
-<h2>ViewBag.Title</h2>
+<h2 style="color:silver;">@ViewBag.Title</h2>
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model, page => Url.Action("Local", new { page }))
 
 @foreach (var item in Model)
 {
-    <div class="cardben" style="display:inline-block; background-color:silver; margin:20px;">
+    <div class="cardben" style="display:inline-block; background-color:silver; margin:20px; max-width:300px;">
         <a href="@Url.Action("Details", "Records", new { id = item.RecordID })"><img src="~/Content/RecordCovers/@item.CoverImage" title="@item.RecordName" style="max-width: 300px;" /></a>
         <div class="containerben">
             <h4><b>@Html.DisplayFor(modelItem => item.RecordName)</b></h4>

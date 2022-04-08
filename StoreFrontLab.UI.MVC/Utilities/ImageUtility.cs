@@ -89,10 +89,10 @@ namespace StoreFrontLab.UI.MVC.Utilities
         public static void Delete(string path, string fileName)
         {
             //Skip this action if targeted file is the "default image".
-            if (fileName.ToLower() == "noimageavailable.jpeg")
-            {
-                return;
-            }
+            //if (fileName.ToLower() == "noimageavailable.jpeg")
+            //{
+            //    return;
+            //}
 
             //Create FileInfo objects for different versions of the file: full (and thumbnail in case it's an image)
             FileInfo baseFile = new FileInfo(path + fileName);

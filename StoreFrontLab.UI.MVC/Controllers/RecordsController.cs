@@ -20,41 +20,77 @@ namespace StoreFrontLab.UI.MVC.Controllers
         private StoreFrontEntities db = new StoreFrontEntities();
 
         // GET: Records
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(string sortOrder, string searchString, int page = 1)
         {
             int pageSize = 10;
 
-            var records = db.Records.Include(r => r.Category).Include(r => r.Genre).Include(r => r.Producer).Include(r => r.StockStatus).OrderBy(r => r.BandMusician).ToList();
-            //return View(records.ToList());
+            #region Optional Search Filter
 
-            return View(records.ToPagedList(page, pageSize));
+            //Check if the searchFilter string was provided/has content
+            if (String.IsNullOrEmpty(searchString))
+            {
+                         
+                var records = db.Records.Include(r => r.Category).Include(r => r.Genre).Include(r => r.Producer).Include(r => r.StockStatus).OrderBy(r => r.BandMusician).ToList();
+                //return View(records.ToList());
 
-            //#region Optional Search Filter
+                #region ColumnSortFailure
+                
+                //ViewBag.RecordNameSortParm = sortOrder == "recordname" ? "recordname_desc" : "recordname";
+                //ViewBag.ArtistSortParm = sortOrder == "artist" ? "artist_desc" : "artist";
+                //ViewBag.PriceSortParm = sortOrder == "price" ? "price_desc" : "price";
+                //ViewBag.ReleaseDateSortParm = sortOrder == "releasedate" ? "releasedate_desc" : "releasedate";
 
-            ////Check if the searchFilter string was provided/has content
-            //if (String.IsNullOrEmpty(searchString))
-            //{
-            //    //If optional search isn't used, return all records
-            //    var albums = db.Records;
-            //    return View(albums.ToList());
-            //}
-            //else
-            //{
-            //    //If the optional search IS used, then filter the results by those
-            //    //criteria (compare to first or last name and ignore casing concerns)
+                //switch (sortOrder)
+                //{
+                //    case "recordname":
+                //        records = records.FirstOrDefault.OrderBy(s => s.RecordName);
+                //        break;
+                //    case "recordname_desc":
+                //        records = records.OrderByDescending(s => s.RecordName);
+                //        break;
+                //    case "artist":
+                //        records = records.OrderBy(s => s.BandMusician);
+                //        break;
+                //    case "artist_desc":
+                //        records = records.OrderByDescending(s => s.BandMusician);
+                //        break;
+                //    case "price":
+                //        records = records.OrderBy(s => s.Price);
+                //        break;
+                //    case "price_desc":
+                //        records = records.OrderByDescending(s => s.Price);
+                //        break;
+                //    case "releasedate":
+                //        records = records.OrderBy(s => s.ReleaseDate);
+                //        break;
+                //    case "releasedate_desc":
+                //        records = records.OrderByDescending(s => s.ReleaseDate);
+                //        break;
+                //    default:
+                //        records = records.OrderBy(s => s.RecordID);
+                //        break;
+                //}
+                #endregion
 
-            //    //v1 LINQ Method/Lambda Syntax
-            //    string searchUpCase = searchString.ToUpper();
+                return View(records.ToPagedList(page, pageSize));
+            }
+            else
+            {
+                //If the optional search IS used, then filter the results by those
+                //criteria (compare to first or last name and ignore casing concerns)
 
-            //    List<Record> searchResults = db.Records.Where(
-            //        a => a.RecordName.ToUpper().Contains(searchUpCase) ||
-            //        a.BandMusician.ToUpper().Contains(searchUpCase)).ToList();
+                //v1 LINQ Method/Lambda Syntax
+                string searchUpCase = searchString.ToUpper();
 
-            //    return View(searchResults);
+                List<Record> searchResults = db.Records.Where(
+                    a => a.RecordName.ToUpper().Contains(searchUpCase) ||
+                    a.BandMusician.ToUpper().Contains(searchUpCase)).ToList();
 
-            //}
+                return View(searchResults);
 
-            //#endregion
+            }
+
+            #endregion
 
 
         
@@ -145,12 +181,15 @@ namespace StoreFrontLab.UI.MVC.Controllers
             return View();
         }
 
-        // POST: Records/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Original Create
+
+
+         //POST: Records/Create
+         //To protect from overposting attacks, please enable the specific properties you wanttobind to, for 
+         //more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecordID,RecordName,BandMusician,GenreID,ReleaseDate,Price,CoverImage,StockID,ProducerID,CategoryID,ColoredLP,Logo")] Record record, HttpPostedFileBase logo)
+        public ActionResult Create([Bind(Include="RecordID,RecordName,BandMusician,GenreID,ReleaseDate,Price,CoverImage,StockID,Producer,CategoryID,ColoredLP,Logo")] Record record, HttpPostedFileBase logo)
 
         {
 
@@ -171,7 +210,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
                     string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif", ".webp" };
 
                     //Check that the uploaded file ext is in our list of acceptable extensions
-                    //and check that the file size is <= 4MB, which is default maximum for ASP.NET
+                    //and check that the file size is <= 4MB, which is default maximum forASP.NET
 
                     if (goodExts.Contains(ext.ToLower()) && logo.ContentLength <= 4194304)
                     {
@@ -187,7 +226,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
 
                         int maxThumbSize = 100;
 
-                        ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                        ImageUtility.ResizeImage(savePath, file, convertedImage,maxImageSize,maxThumbSize);
 
                         #endregion
                     }
@@ -203,12 +242,25 @@ namespace StoreFrontLab.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", record.CategoryID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID","CategoryName",record.CategoryID);
             ViewBag.GenreID = new SelectList(db.Genres, "GenreID", "GenreName", record.GenreID);
-            ViewBag.ProducerID = new SelectList(db.Producers, "ProducerID", "FirstName", record.ProducerID);
-            ViewBag.StockID = new SelectList(db.StockStatuses, "StockID", "Status", record.StockID);
+            ViewBag.ProducerID = new SelectList(db.Producers, "ProducerID","FirstName",record.ProducerID);
+            ViewBag.StockID = new SelectList(db.StockStatuses, "StockID","Status",record.StockID);
             return View(record);
         }
+        #endregion
+
+        #region AJAX CREATE
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public JsonResult AjaxCreate(Record record)
+        //{
+        //    db.Records.Add(record);
+        //    db.SaveChanges();
+        //    return Json(record);
+        //}
+        #endregion
 
         // GET: Records/Edit/5
         public ActionResult Edit(int? id)
@@ -302,49 +354,50 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
 
         #region Original Delete
-        // GET: Records/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Record record = db.Records.Find(id);
-        //    if (record == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(record);
-        //}
 
-        //// POST: Records/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Record record = db.Records.Find(id);
+        //GET: Records/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Record record = db.Records.Find(id);
+            if (record == null)
+            {
+                return HttpNotFound();
+            }
+            return View(record);
+        }
 
-        //    string path = Server.MapPath("~/Content/RecordCovers/");
-        //    ImageUtility.Delete(path, record.CoverImage);
+        // POST: Records/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Record record = db.Records.Find(id);
 
-        //    db.Records.Remove(record);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+            string path = Server.MapPath("~/Content/RecordCovers/");
+            ImageUtility.Delete(path, record.CoverImage);
+
+            db.Records.Remove(record);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         #endregion
 
         #region AJAX Delete
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult AjaxDelete(int id)
-        {
-            Record record = db.Records.Find(id);
-            db.Records.Remove(record);
-            db.SaveChanges();
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public JsonResult AjaxDelete(int id)
+        //{
+        //    Record record = db.Records.Find(id);
+        //    db.Records.Remove(record);
+        //    db.SaveChanges();
 
-            string confirmMessage = string.Format("Deleted Record '{0}' from the database.", record.RecordName + " " + record.BandMusician);
-            return Json(new { id = id, message = confirmMessage });
-        }
+        //    string confirmMessage = string.Format("Deleted Record '{0}' from the database.", record.RecordName);
+        //    return Json(new { id = id, message = confirmMessage });
+        //}
         #endregion
 
         protected override void Dispose(bool disposing)

@@ -1,13 +1,13 @@
-﻿
-@model PagedList.IPagedList<StoreFront.DATA.EF.Record>
+﻿@model PagedList.IPagedList<StoreFront.DATA.EF.Record>
 @using PagedList;
 @using PagedList.Mvc;
+
 
 @{
     ViewBag.Title = "All Records";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 style="color:silver;">@ViewBag.Title</h2>
 
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
@@ -20,124 +20,91 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().CoverImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().RecordName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().BandMusician)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().ColoredLP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Genre.GenreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Producer.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().StockStatus.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+    <table class="table table-striped" id="RecordsTable">
+        <thead>
             <tr>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.CoverImage)*@
-                    <img src="~/Content/RecordCovers/t_@item.CoverImage" title="@item.RecordName" style="max-width: 100px;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RecordName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BandMusician)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ColoredLP)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Producer.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StockStatus.Status)
-                </td>
-                <td>
-
-                    @Html.ActionLink("Details", "Details", new { id = item.RecordID })
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.RecordID })
-                        @*@Html.ActionLink("Delete", "Delete", new { id = item.RecordID })*@
-
-                        @Ajax.ActionLink("Delete", "AjaxDelete", "Records"
-                        , new { id = item.RecordID}
-                        , new AjaxOptions
-                        {
-                           HttpMethod = "POST",
-                           Confirm = $"Are you sure you want to delete {item.RecordName} {item.BandMusician} from the Database?",
-                           OnSuccess = "deleteConfirmed"
-                           , OnFailure = "deleteFailed"
-                        }
-                        )
-
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CoverImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().RecordName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().BandMusician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ColoredLP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Genre.GenreName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Producer.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().StockStatus.Status)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
 
-</table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="Record-@item.RecordID">
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.CoverImage)*@
+                        <img src="~/Content/RecordCovers/t_@item.CoverImage" title="@item.RecordName" style="max-width: 100px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RecordName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BandMusician)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ColoredLP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre.GenreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producer.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockStatus.Status)
+                    </td>
+                    <td>
 
-@section scripts {
+                        @Html.ActionLink("Details/Add to Cart", "Details", new { id = item.RecordID })
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.RecordID })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.RecordID })
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-    <script>
-
-        // *********** AJAX DELETE CONFIRMATION ************* //
-        function deleteConfirmed(response, status, data) {
-            //remove the row from the table onscreen
-            var rowId = "#Record-" + response.id;
-            $("#RecordsTable").find(rowId).remove();
-
-            //display a status message (use AJAX response's message property)
-            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
-        }
-        function deleteFailed(response, status, data) {
-            //display a status message (use AJAX response's message property)
-            $("#MessageContent").html("<div class='alert alert-danger'>Delete unsuccessful. Is this record referenced elsewhere? If so, delete all affiliations.</div >");
-        }
-
-
-    </script>
-
-}
+    </table>

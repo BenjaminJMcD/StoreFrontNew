@@ -25,24 +25,37 @@ namespace StoreFrontLab.UI.MVC.Controllers
             int pageSize = 4;
 
 
-            ViewBag.SearchFilter = new SelectList(db.Records.Select(x => x.Category).Distinct());
+            //ViewBag.SearchFilter = new SelectList(db.Records.Select(x => x.Category.CategoryID ==1));
 
-            var records = db.Records.Include(r => r.Category).Include(r => r.Genre).Include(r => r.Producer).Include(r => r.StockStatus).OrderBy(r => r.BandMusician).ToList();
+            
+            
+
+            var records = db.Records.Where(a => a.CategoryID.Value == 1).ToList();
             //return View(records.ToList());
+
+            
+
 
             return View(records.ToPagedList(page, pageSize));
 
         }
 
-        public ActionResult Wizardry()
+        public ActionResult Wizardry(int page = 1)
         {
-            
-            return View();
+            int pageSize = 4;
+
+            var records = db.Records.Where(a => a.CategoryID.Value == 2).ToList();
+
+            return View(records.ToPagedList(page, pageSize));
         }
 
-        public ActionResult Backyard()
+        public ActionResult Backyard(int page = 1)
         {
-            return View();
+            int pageSize = 4;
+
+            var records = db.Records.Where(a => a.CategoryID.Value == 3).ToList();
+
+            return View(records.ToPagedList(page, pageSize));
         }
     }
 }
