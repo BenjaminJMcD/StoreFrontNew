@@ -99,8 +99,8 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                         @Html.ActionLink("Details/Add to Cart", "Details", new { id = item.RecordID })
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.RecordID })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.RecordID })
+                            @Html.ActionLink("| Edit", "Edit", new { id = item.RecordID })
+                            @Html.ActionLink("| Delete", "Delete", new { id = item.RecordID })
                         }
                     </td>
                 </tr>

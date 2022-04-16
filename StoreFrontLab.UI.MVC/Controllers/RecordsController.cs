@@ -250,7 +250,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
         #endregion
 
-        #region AJAX CREATE
+        //#region AJAX CREATE
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -260,7 +260,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         //    db.SaveChanges();
         //    return Json(record);
         //}
-        #endregion
+        //#endregion
 
         // GET: Records/Edit/5
         public ActionResult Edit(int? id)
@@ -386,7 +386,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
         #endregion
 
-        #region AJAX Delete
+        //#region AJAX Delete
 
         //[AcceptVerbs(HttpVerbs.Post)]
         //public JsonResult AjaxDelete(int id)
@@ -398,7 +398,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         //    string confirmMessage = string.Format("Deleted Record '{0}' from the database.", record.RecordName);
         //    return Json(new { id = id, message = confirmMessage });
         //}
-        #endregion
+        //#endregion
 
         protected override void Dispose(bool disposing)
         {

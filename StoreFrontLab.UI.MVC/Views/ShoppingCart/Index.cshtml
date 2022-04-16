@@ -7,7 +7,7 @@
     int totalCountOfItems = 0;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 style="color:silver;">@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Back to Shopping", "Index", "Records", null, new { @class = "btn btn-danger" })
@@ -36,7 +36,7 @@ else
             <tr>
                 <td>
                     <!--Model represents our dictionary, to get to specific values in the product portion of that collection, we need to access the Value property, then Product, then property to display.-->
-                    <img src="~/Content/RecordCovers/@item.Value.Product.CoverImage" alt="Record Cover" title="@item.Value.Product.RecordName" />
+                    <img src="~/Content/RecordCovers/@item.Value.Product.CoverImage" alt="Record Cover" title="@item.Value.Product.RecordName" style="max-width:80%;" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Value.Product.RecordName)
@@ -73,12 +73,12 @@ else
                 </td>
             </tr>
         }
-
+        <p style="float:right;">
+            You have @totalCountOfItems  @(totalCountOfItems > 1 ? "records" : "record") in your cart. Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+        </p>
     </table>
 
-    <p>
-        You have @totalCountOfItems  @(totalCountOfItems > 1 ? "records" : "record") in your cart. Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
-    </p>
 
 
+    <div class="break"></div>
 }@*END ELSE*@
